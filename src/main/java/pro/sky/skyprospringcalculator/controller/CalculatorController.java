@@ -1,4 +1,4 @@
-package pro.sky.skyprospringcalculator;
+package pro.sky.skyprospringcalculator.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import pro.sky.skyprospringcalculator.ICalculatorService;
 
 @RestController
 @RequestMapping("/calculator")
@@ -19,8 +20,9 @@ public class CalculatorController {
 
     @GetMapping()
     public String helloCalculator() {
-        return calculatorService.helloCalculator();
+        return "Добро пожаловать в калькулятор";
     }
+
 
     @GetMapping(path = "/plus")
     public String plusCalculator(@RequestParam(required = false) Integer num1, @RequestParam(required = false) Integer num2) {
@@ -28,7 +30,7 @@ public class CalculatorController {
             return "Введите оба числа";
         }
 
-        return calculatorService.plusCalculator(num1, num2);
+        return num1 + " + " + num2 + " = " + " " + calculatorService.plusCalculator(num1, num2);
     }
 
     @GetMapping(path = "/minus")
@@ -37,7 +39,7 @@ public class CalculatorController {
             return "Введите оба числа";
         }
 
-        return calculatorService.minusCalculator(num1, num2);
+        return num1 + " - " + num2 + " = " + " " + calculatorService.minusCalculator(num1, num2);
     }
 
     @GetMapping(path = "/multiply")
@@ -46,7 +48,7 @@ public class CalculatorController {
             return "Введите оба числа";
         }
 
-        return calculatorService.multiplyCalculator(num1, num2);
+        return num1 + " * " + num2 + " = " + " " + calculatorService.multiplyCalculator(num1, num2);
     }
 
     @GetMapping(path = "/divide")
@@ -59,7 +61,8 @@ public class CalculatorController {
           if (num2 == 0) {
             return new ResponseEntity<>("На ноль делить нельзя!", HttpStatus.NOT_ACCEPTABLE);
         }
-        return ResponseEntity.ok(calculatorService.divideCalculator(num1, num2));
+        return ResponseEntity.ok( num1 + " / " + num2 + " = " + " " + calculatorService.divideCalculator(num1, num2));
+
 
      // оказалось , что double делить на 0 можно, исключение не выбрасывается
       /* try {
